@@ -9,3 +9,7 @@ class StudentCreate(BaseModel):
   name: str
   age: int
   address: Address
+
+class StudentList(BaseModel):
+  name: str
+  age: int
