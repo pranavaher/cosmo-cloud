@@ -1,5 +1,5 @@
 from fastapi import APIRouter, HTTPException, Query
-from app.controllers.student_controller import create_student, get_all_students, get_student_by_id, update_student
+from app.controllers.student_controller import create_student, get_all_students, get_student_by_id, update_student, delete_student
 from app.models.student import StudentCreate, StudentList, StudentResponse, StudentUpdate
 
 from bson import ObjectId
@@ -29,3 +29,10 @@ async def update_student_route(id: str, student_update: StudentUpdate):
   print("*************")
   await update_student(id, student_update)
   return None  # Return None as there's no content in the response
+
+@router.delete("/students/{student_id}")
+async def delete_student_route(student_id: str):
+  deleted_count = await delete_student(student_id)
+  if deleted_count == 0:
+    raise HTTPException(status_code=404, detail="Student not found")
+  return {"message": "Student deleted successfully"}
