@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException, Query
-from app.controllers.student_controller import create_student, get_all_students, get_student_by_id
-from app.models.student import StudentCreate, StudentList, StudentResponse
+from app.controllers.student_controller import create_student, get_all_students, get_student_by_id, update_student
+from app.models.student import StudentCreate, StudentList, StudentResponse, StudentUpdate
 
 from bson import ObjectId
 
@@ -23,3 +23,9 @@ async def get_student_by_id_route(student_id: str):
     return student
   else:
     raise HTTPException(status_code=404, detail="Student not found")
+
+@router.patch("/students/{id}", status_code=204)
+async def update_student_route(id: str, student_update: StudentUpdate):
+  print("*************")
+  await update_student(id, student_update)
+  return None  # Return None as there's no content in the response
