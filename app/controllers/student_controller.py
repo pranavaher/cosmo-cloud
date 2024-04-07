@@ -48,3 +48,7 @@ async def update_student(id: str, student_update: StudentUpdate):
   result = await collection.update_one({"_id": student_id}, {"$set": updated_values})
   if result.matched_count == 0:
     raise HTTPException(status_code=404, detail="Student not found")
+
+async def delete_student(student_id: str):
+  result = await collection.delete_one({"_id": ObjectId(student_id)})
+  return result.deleted_count
