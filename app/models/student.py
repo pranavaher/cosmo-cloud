@@ -13,3 +13,8 @@ class StudentCreate(BaseModel):
 class StudentList(BaseModel):
   name: str
   age: int
+
+class StudentResponse(BaseModel):
+  name: str
+  age: int
+  address: Address
